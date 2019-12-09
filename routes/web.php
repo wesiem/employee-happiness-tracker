@@ -12,9 +12,13 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/admin', 'AdminController@index')->name('admin');
+
+Route::get('/vote/{voteslug}', ['uses' =>'HomeController@vote']);
+
+Route::get('/thank-you', ['uses' =>'HomeController@thank_you']);
