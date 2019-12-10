@@ -8,6 +8,8 @@
                 <div class="card-header">Statistics <strong>{{ $title }}</strong></div>
 
                 <div class="card-body">
+                    <p>Employees were on average {{ $data->average }} {{ $title }} ({{ $data->average_percent }}%).</p>
+
                     <canvas id="votes_chart" width="400" height="150"></canvas>
 
                     <table class="table stats-table">

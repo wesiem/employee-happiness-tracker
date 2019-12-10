@@ -44,7 +44,7 @@ class StatisticsController extends Controller
         $data = $this->prepare_statistics($votes);
 
         return view('statistics.details', [
-            'title' => 'Today',
+            'title' => 'today',
             'data' => $data
         ]);
     }
@@ -69,7 +69,7 @@ class StatisticsController extends Controller
         $data = $this->prepare_statistics($votes);
 
         return view('statistics.details', [
-            'title' => 'This week',
+            'title' => 'this week',
             'data' => $data
         ]);
     }
@@ -94,7 +94,7 @@ class StatisticsController extends Controller
         $data = $this->prepare_statistics($votes);
 
         return view('statistics.details', [
-            'title' => 'This month',
+            'title' => 'this month',
             'data' => $data
         ]);
     }
@@ -113,15 +113,18 @@ class StatisticsController extends Controller
         $statistics->happy = 0;
         $statistics->unemotional = 0;
         $statistics->unhappy = 0;
+        $statistics->average = "";
 
         // init percentages
         $statistics->happy_percent = 0;
         $statistics->unemotional_percent = 0;
         $statistics->unhappy_percent = 0;
+        $statistics->average_percent = 0;
 
         // add total votes count
         $statistics->total = count($votes);
 
+        // count all moods
         foreach ($votes as $vote) {
             if ($vote->slug == "happy") {
                 $statistics->happy++;
@@ -133,9 +136,26 @@ class StatisticsController extends Controller
         }
 
         // calculate percentages
-        $statistics->happy_percent = round(($statistics->happy / $statistics->total) * 100);
-        $statistics->unemotional_percent = round(($statistics->unemotional / $statistics->total) * 100);
-        $statistics->unhappy_percent = round(($statistics->unhappy / $statistics->total) * 100);
+        if ($statistics->total > 0) {
+            $statistics->happy_percent = round(($statistics->happy / $statistics->total) * 100);
+            $statistics->unemotional_percent = round(($statistics->unemotional / $statistics->total) * 100);
+            $statistics->unhappy_percent = round(($statistics->unhappy / $statistics->total) * 100);
+
+            // find the mood with the most votes
+            $statistics->average_percent = max($statistics->happy_percent, $statistics->unemotional_percent, $statistics->unhappy_percent);
+
+            switch ($statistics->average_percent) {
+                case $statistics->happy_percent:
+                    $statistics->average = "happy";
+                    break;
+                case $statistics->unemotional_percent:
+                    $statistics->average = "unemotional";
+                    break;
+                case $statistics->unhappy_percent:
+                    $statistics->average = "unhappy";
+                    break;
+            }
+        }
 
         return $statistics;
     }
