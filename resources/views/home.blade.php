@@ -18,6 +18,12 @@
 						<a href="{{ url('/vote/unemotional') }}" role="button" class="btn btn-secondary btn-group-lg">Unemotional :-|</a>
 						<a href="{{ url('/vote/happy') }}" role="button" class="btn btn-success btn-group-lg">Happy :-)</a>
 					</div>
+
+                    @auth
+                        <p class="mt-3">
+                            <a href="{{ url('/admin') }}">view statistics</a>
+                        </p>
+                    @endauth
                 </div>
             </div>
         </div>

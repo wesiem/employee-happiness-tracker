@@ -13,6 +13,9 @@
 	                </p>
                     <p>
                         <a href="{{ url('/') }}">New vote</a> or wait a few seconds.
+                        @auth
+                            <a href="{{ url('/admin') }}">View statistics.</a>
+                        @endauth
                     </p>
                 </div>
             </div>
