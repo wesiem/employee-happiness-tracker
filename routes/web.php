@@ -11,14 +11,20 @@
 |
 */
 
+// homepage
 Route::get('/', function () {
     return view('home');
 });
 
+// auth routes
 Auth::routes();
 
-Route::get('/admin', 'AdminController@index')->name('admin');
+// statistics
+Route::get('/statistics', 'StatisticsController@index')->name('statistics');
+Route::get('/statistics/day', 'StatisticsController@day')->name('statistics_day');
+Route::get('/statistics/week', 'StatisticsController@week')->name('statistics_week');
+Route::get('/statistics/month', 'StatisticsController@month')->name('statistics_month');
 
+// vote
 Route::get('/vote/{voteslug}', ['uses' =>'HomeController@vote']);
-
 Route::get('/thank-you', ['uses' =>'HomeController@thank_you']);

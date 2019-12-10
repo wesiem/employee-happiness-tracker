@@ -11,6 +11,8 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
+    <script src="{{ asset('js/jquery.min.js') }}"" ></script>
+    <script src="{{ asset('js/Chart.min.js') }}"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,6 +20,8 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/Chart.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -76,5 +80,16 @@
             @yield('content')
         </main>
     </div>
+
+    @if (Route::is('statistics_*'))
+    <script>
+        var chart_data = [
+            '{{ $data->happy }}', 
+            '{{ $data->unemotional }}', 
+            '{{ $data->unhappy }}'
+        ];
+    </script>
+    <script src="{{ asset('js/custom.js') }}"></script>
+    @endif
 </body>
 </html>
