@@ -16,7 +16,7 @@ class CreateVotesTable extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->integer('mood_id');
-            $table->dateTime('created_at');
+            $table->dateTime('datetime');
         });
     }
 

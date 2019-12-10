@@ -18,7 +18,6 @@ class CreateMoodsTable extends Migration
             $table->string('name', 20);
             $table->string('slug', 20);
             $table->string('emoji', 5);
-            $table->dateTime('created_at');
         });
     }
 
