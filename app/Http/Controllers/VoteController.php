@@ -9,16 +9,6 @@ use Illuminate\Http\Request;
 class VoteController extends Controller
 {
     /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index()
-    {
-        // return view('home');
-    }
-
-    /**
      * Vote anonymously
      */
     public function new($voteslug)

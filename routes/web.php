@@ -15,6 +15,9 @@
 Route::get('/', 'HomeController@index')->name('home');
 
 // votes
+Route::get('/votes', function () {
+    return redirect('/');
+});
 Route::get('/votes/new/{voteslug}', ['uses' =>'VoteController@new']);
 Route::get('/votes/thank-you', ['uses' =>'VoteController@thank_you']);
 
