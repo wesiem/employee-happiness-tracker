@@ -25,7 +25,7 @@ class StatisticsController extends Controller
      */
     public function index()
     {
-        return view('statistics');
+        return view('statistics.main');
     }
 
     /**
@@ -43,7 +43,7 @@ class StatisticsController extends Controller
         // prepare statistics for day, week & month
         $data = $this->prepare_statistics($votes);
 
-        return view('statistics_details', [
+        return view('statistics.details', [
             'title' => 'Today',
             'data' => $data
         ]);
@@ -68,7 +68,7 @@ class StatisticsController extends Controller
         // prepare statistics for day, week & month
         $data = $this->prepare_statistics($votes);
 
-        return view('statistics_details', [
+        return view('statistics.details', [
             'title' => 'This week',
             'data' => $data
         ]);
@@ -93,7 +93,7 @@ class StatisticsController extends Controller
         // prepare statistics for day, week & month
         $data = $this->prepare_statistics($votes);
 
-        return view('statistics_details', [
+        return view('statistics.details', [
             'title' => 'This month',
             'data' => $data
         ]);

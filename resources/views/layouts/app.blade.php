@@ -84,9 +84,9 @@
     @if (Route::is('statistics_*'))
     <script>
         var chart_data = [
-            '{{ $data->happy }}', 
-            '{{ $data->unemotional }}', 
-            '{{ $data->unhappy }}'
+            '{{ $data->unhappy }}',
+            '{{ $data->unemotional }}',
+            '{{ $data->happy }}'
         ];
     </script>
     <script src="{{ asset('js/custom.js') }}"></script>

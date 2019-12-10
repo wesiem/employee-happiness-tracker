@@ -14,9 +14,9 @@
 	                </p>
 
                     <div id="vote-buttons" class="btn-group" role="group" aria-label="Vote buttons">
-						<a href="{{ url('/vote/unhappy') }}" role="button" class="btn btn-danger btn-group-lg">:-(</a>
-						<a href="{{ url('/vote/unemotional') }}" role="button" class="btn btn-primary btn-group-lg">:-|</a>
-						<a href="{{ url('/vote/happy') }}" role="button" class="btn btn-success btn-group-lg">:-)</a>
+						<a href="{{ url('/votes/new/unhappy') }}" role="button" class="btn btn-danger btn-group-lg">:-(</a>
+						<a href="{{ url('/votes/new/unemotional') }}" role="button" class="btn btn-primary btn-group-lg">:-|</a>
+						<a href="{{ url('/votes/new/happy') }}" role="button" class="btn btn-success btn-group-lg">:-)</a>
 					</div>
 
                     @auth
