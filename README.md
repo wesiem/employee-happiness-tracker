@@ -51,7 +51,7 @@ This command will add 1.000 random votes with a random mood and a random date be
 ### VoteController:
 The votes are managed by the VoteController, which makes it possible to submit new votes and display the thank you page after submission.
 
-    /votes/new/{voteslug}
+    /votes/new/{voteSlug}
     /votes/thank-you
 
 >**Note:** Voting has to be done from the homepage (HomeController): `/`
@@ -75,6 +75,14 @@ On this page you're able to select the statistics view. You can also use the qui
     /statistics/day
     /statistics/week
     /statistics/month
+
+## API
+It is also possible to retrieve data via our API.
+
+	/api/moods
+	/api/moods/{id}
+	/api/moods/slug/{slug}
+	/api/votes
 
 ## ---
 Wesiem Bouzaiane
