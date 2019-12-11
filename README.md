@@ -21,8 +21,10 @@ The "vote" is stored anonymously in persistent storage on the back-end.
 1. Get a copy of this source code.
 2. Create a database and give it a name.
 3. Copy **.env.example** to **.env** and change the database settings (and more if you want to).
-4. Run all database migrations by using the following command: `php artisan migrate`
-5. Run the application with: `php artisan serve`
+4. Run all database migrations by using the following command: 
+`php artisan migrate`
+5. Run the application with:
+`php artisan serve`
 
 Now you should be able to see the homepage, but before you continue, make sure to keep reading this file for further installation!
 
@@ -31,9 +33,9 @@ An employee can share his/her mood which can be happy, unemotional or unhappy. T
 
 | id | name | emoji |
 | -- | ---- | ----- |
-| 1 | Happy | `:-)` |
-| 2 | Unemotional | `:-|` |
-| 3 | Unhappy | `:-(` |
+| 1 | Happy | :-) |
+| 2 | Unemotional | :-\| |
+| 3 | Unhappy | :-( |
 
 You can import these values by using the following command:
 `php artisan db:seed --class=MoodsTableSeeder`
