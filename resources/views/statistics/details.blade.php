@@ -4,6 +4,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @include('statistics.nav')
+
             <div class="card">
                 <div class="card-header">Statistics <strong>{{ $title }}</strong></div>
 
@@ -43,13 +45,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-
-            <div class="btn-group mt-2" role="group" aria-label="Statistics nav">
-                <a href="{{ url('/statistics') }}" role="button" class="btn btn-secondary btn-group-lg">Main</a>
-                <a href="{{ url('/statistics/day') }}" role="button" class="btn btn-secondary btn-group-lg">Today</a>
-                <a href="{{ url('/statistics/week') }}" role="button" class="btn btn-secondary btn-group-lg">This week</a>
-                <a href="{{ url('/statistics/month') }}" role="button" class="btn btn-secondary btn-group-lg">This month</a>
             </div>
         </div>
     </div>
