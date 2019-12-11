@@ -4,6 +4,10 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            @auth
+                <a href="{{ url('/statistics') }}" role="button" class="btn btn-secondary btn-group-lg mb-2">Statistics</a>
+            @endauth
+
             <div class="card">
                 <div class="card-header">Welcome!</div>
 
@@ -18,12 +22,6 @@
 						<a href="{{ url('/votes/new/unemotional') }}" role="button" class="btn btn-primary btn-group-lg">:-|</a>
 						<a href="{{ url('/votes/new/happy') }}" role="button" class="btn btn-success btn-group-lg">:-)</a>
 					</div>
-
-                    @auth
-                        <p class="mt-3">
-                            <a href="{{ url('/statistics') }}">view statistics</a>
-                        </p>
-                    @endauth
                 </div>
             </div>
         </div>
