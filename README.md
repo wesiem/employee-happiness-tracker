@@ -1,4 +1,5 @@
 
+
 # Employee Happiness Tracker
 A simple web app that tracks employee happiness. It's also an introduction to Laravel and its cool features!
 
@@ -61,7 +62,7 @@ The voting can be done completely anonymous. If you want to be able to do more (
 
 For now you can simply do that by clicking on the `Register` button on the top right of the homepage.
 
-After registration you should be able to go to view the statistics.
+After registration you should be able to view the statistics.
 
 ## Statistics
 As an administrator you can get access to the statistics of the votes for the current day, week and month.
@@ -77,12 +78,34 @@ On this page you're able to select the statistics view. You can also use the qui
     /statistics/month
 
 ## API
-It is also possible to retrieve data via our API.
+### Submitting a new vote
 
-	/api/moods
-	/api/moods/{id}
-	/api/moods/slug/{slug}
-	/api/votes
+Votes can be submitted anonymously via the API by using the following endpoint:
+`/api/votes/new`
 
-## ---
-Wesiem Bouzaiane
+Now, to be able to send a valid vote, you need to let the API know what the mood of the employee is. This can be done by requesting a list of al moods with the following endpoint:
+`/api/moods`
+
+> **Note:** You can also retrieve the information of a single mood via: 
+> `/api/moods/{id}`
+
+### Authentication
+To retrieve sensitive data via the API it is recommended to only give access to those who are allowed to view this information. That's why the statistics can only be retrieved if the user is being authenticated.
+
+This authentication happens in a very basic way by using an API Token which can be found on the `/statistics` page of the web app next to the `YOUR API TOKEN` input field.
+
+Whenever you want to get access to the statistics, you'll need to give up your personal API Token.
+
+| Key | Value |
+| --------- | ------------------ |
+| api_token | **YOUR API TOKEN** |
+
+### Retrieving Statistics
+
+You can retrieve the statistics data of the current day, week or month via the following endpoints:
+  
+    /api/statistics/day
+    /api/statistics/week
+    /api/statistics/month
+
+> **Note:** Make sure you are authenticated by providing your API Token.

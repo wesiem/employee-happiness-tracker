@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Mood;
 use App\Vote;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StatisticsController extends Controller
 {
@@ -25,7 +26,11 @@ class StatisticsController extends Controller
      */
     public function index()
     {
-        return view('statistics.main');
+        $api_token = Auth::user()->api_token;
+
+        return view('statistics.main', [
+            'api_token' => $api_token
+        ]);
     }
 
     /**
@@ -35,13 +40,7 @@ class StatisticsController extends Controller
      */
     public function day()
     {
-        // get all votes for today
-        $votes = Vote::whereDate('datetime', date('Y-m-d'))
-                        ->leftJoin('moods', 'votes.mood_id', '=', 'moods.id')
-                        ->get();
-
-        // prepare statistics for day, week & month
-        $data = $this->prepare_statistics($votes);
+        $data = $this->get_statistics_data("day");
 
         return view('statistics.details', [
             'title' => 'today',
@@ -56,17 +55,7 @@ class StatisticsController extends Controller
      */
     public function week()
     {
-        // get all votes for this week
-        $start_of_week = (date('D') != 'Mon') ? date('Y-m-d 00:00:00', strtotime('last Monday')) : date('Y-m-d 00:00:00');
-
-        $now = date('Y-m-d H:m:s');
-
-        $votes = Vote::whereBetween('datetime', [$start_of_week, $now])
-                    ->leftJoin('moods', 'votes.mood_id', '=', 'moods.id')
-                    ->get();
-
-        // prepare statistics for day, week & month
-        $data = $this->prepare_statistics($votes);
+        $data = $this->get_statistics_data("week");
 
         return view('statistics.details', [
             'title' => 'this week',
@@ -81,22 +70,56 @@ class StatisticsController extends Controller
      */
     public function month()
     {   
-        // get all votes for this month
-        $start_of_month = date('Y-m-01');
-
-        $now = date('Y-m-d H:m:s');
-
-        $votes = Vote::whereBetween('datetime', [$start_of_month, $now])
-                        ->leftJoin('moods', 'votes.mood_id', '=', 'moods.id')
-                        ->get();
-
-        // prepare statistics for day, week & month
-        $data = $this->prepare_statistics($votes);
+        $data = $this->get_statistics_data("month");
 
         return view('statistics.details', [
             'title' => 'this month',
             'data' => $data
         ]);
+    }
+
+    /**
+     * Gets statistics data based on the requested period
+     */
+    private function get_statistics_data($period = false)
+    {
+        $data = new \stdClass();
+
+        if ($period == "day") {
+            // get all votes for today
+            $votes = Vote::whereDate('datetime', date('Y-m-d'))
+                            ->leftJoin('moods', 'votes.mood_id', '=', 'moods.id')
+                            ->get();
+
+            // prepare statistics for day, week & month
+            $data = $this->prepare_statistics($votes);
+        } else if ($period == "week") {
+            // get all votes for this week
+            $start_of_week = (date('D') != 'Mon') ? date('Y-m-d 00:00:00', strtotime('last Monday')) : date('Y-m-d 00:00:00');
+
+            $now = date('Y-m-d H:m:s');
+
+            $votes = Vote::whereBetween('datetime', [$start_of_week, $now])
+                        ->leftJoin('moods', 'votes.mood_id', '=', 'moods.id')
+                        ->get();
+
+            // prepare statistics for day, week & month
+            $data = $this->prepare_statistics($votes);
+        } else if ($period == "month") {
+            // get all votes for this month
+            $start_of_month = date('Y-m-01');
+
+            $now = date('Y-m-d H:m:s');
+
+            $votes = Vote::whereBetween('datetime', [$start_of_month, $now])
+                            ->leftJoin('moods', 'votes.mood_id', '=', 'moods.id')
+                            ->get();
+
+            // prepare statistics for day, week & month
+            $data = $this->prepare_statistics($votes);
+        }
+
+        return $data;
     }
 
     /**
@@ -158,5 +181,41 @@ class StatisticsController extends Controller
         }
 
         return $statistics;
+    }
+
+    /**
+     * API Statistics day
+     *
+     * @return Statistics data
+     */
+    public function api_day()
+    {
+        $data = $this->get_statistics_data("day");
+
+        return json_encode($data);
+    }
+
+    /**
+     * API Statistics week
+     *
+     * @return Statistics data
+     */
+    public function api_week()
+    {
+        $data = $this->get_statistics_data("week");
+
+        return json_encode($data);
+    }
+
+    /**
+     * API Statistics month
+     *
+     * @return Statistics data
+     */
+    public function api_month()
+    {
+        $data = $this->get_statistics_data("month");
+
+        return json_encode($data);
     }
 }
