@@ -23,10 +23,10 @@ class VoteController extends Controller
 
                  // save vote
                 if ($mood_id > 0) {
-                    $mood = new Vote;
-                    $mood->mood_id = $mood_id;
-                    $mood->datetime = date("Y-m-d H:i:s");
-                    $mood->save();
+                    $vote = new Vote;
+                    $vote->mood_id = $mood_id;
+                    $vote->datetime = date("Y-m-d H:i:s");
+                    $vote->save();
 
                     // NOTE: Here the vote could be verified to be sure it has been registered. But for now we'll leave it as it is.
 
