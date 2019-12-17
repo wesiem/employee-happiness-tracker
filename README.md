@@ -104,8 +104,8 @@ Whenever you want to get access to the statistics, you'll need to give up your p
 
 You can retrieve the statistics data of the current day, week or month via the following endpoints:
   
-  /api/statistics/day
-  /api/statistics/week
-  /api/statistics/month
+    /api/statistics/day
+    /api/statistics/week
+    /api/statistics/month
 
 > **Note:** Make sure you are authenticated by providing your API Token.
