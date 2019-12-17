@@ -18,6 +18,14 @@
                     </ul>
                 </div>
             </div>
+
+            
+            <div class="input-group mb-3 mt-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text">YOUR API TOKEN</span>
+              </div>
+              <input type="text" class="form-control" value="{{ $api_token }}" readonly>
+            </div>
         </div>
     </div>
 </div>

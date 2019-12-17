@@ -2,10 +2,9 @@
 
 use Illuminate\Http\Request;
 
-use App\Http\Resources\Mood as MoodResource;
+use App\Http\Resources\MoodResource;
 use App\Mood;
-
-use App\Http\Resources\Vote as VoteResource;
+use App\Http\Controllers\StatisticsController;
 use App\Vote;
 
 /*
@@ -37,12 +36,38 @@ Route::get('/moods/{id}', function($id) {
     return new MoodResource(Mood::find($id));
 });
 
-// get mood by slug
-Route::get('/moods/slug/{slug}', function($slug) {
-    return new MoodResource(Mood::where('slug', $slug)->get());
+Route::get('/statistics/day', function () {
+	$statistics = new StatisticsController();
+	return $statistics->api_day();
+})->middleware('auth:api');
+
+
+Route::get('/statistics/week', function () {
+	$statistics = new StatisticsController();
+	return $statistics->api_week();
+})->middleware('auth:api');
+
+Route::get('/statistics/month', function () {
+	$statistics = new StatisticsController();
+	return $statistics->api_month();
+})->middleware('auth:api');
+
+Route::post('/votes/new', function(Request $request) {
+	$mood_id = isset($request->mood_id) ? $request->mood_id : false;
+
+	if (! $mood_id) {
+		return ["message" => "Invalid request."];
+	}
+
+
+    $vote = new Vote;
+    $vote->mood_id = $mood_id;
+    $vote->datetime = date("Y-m-d H:i:s");
+    $vote->save();
+
+	return $vote;
 });
 
-Route::get('/votes', function () {
-	// TODO: only accessible if authenticated
-    return new MoodResource(Vote::all());
-});
+
+
+
